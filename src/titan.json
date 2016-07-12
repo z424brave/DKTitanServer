@@ -1,0 +1,26 @@
+{
+  "name" : "Titan Unified CMS",
+  "version" : "1.0.0",
+  "author" : "Martin Haynes",
+  "mount" : "/",
+  "static" : "assets",
+  "modules" : [
+    "welcome",
+    "mongo",
+    "mail",
+	"s3",
+    "error",
+    "mail",
+    "user",
+    "auth",
+    "application",
+    "application/applicationType",
+    "node/node",
+    "node/content",
+    "lexicon/lexicon",
+    "lexicon/tag",
+    "channels/channels",
+    "channels/channelSettings",
+    "language"
+  ]
+}

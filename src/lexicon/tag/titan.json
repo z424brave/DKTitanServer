@@ -1,0 +1,8 @@
+{
+  "name" : "titan.tag",
+  "description" : "Tags management module",
+  "author" : "Damian Kelly",
+  "version" : "1.0.0",
+  "mount" : "/tags",
+  "router" : "router.js"
+}
