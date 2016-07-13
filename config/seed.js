@@ -678,16 +678,14 @@ function populate_lexicons() {
 
                     name: "Games",
                     description: "A lexicon for Games",
-                    status: "active",
-                    tags: [tag1, tag2]
+                    status: "active"
 
                 },
                 {
 
                     name: "Game Launcher",
                     description: "A lexicon for the Game Launcher",
-                    status: "active",
-                    tags: [tag2, tag3]
+                    status: "active"
 
                 })
                 .then(() => {
