@@ -7,7 +7,7 @@
     const Lexicon = require('../lexicon/lexicon_model');
 
     let tagSchema = new Schema({
-        name: String,
+        name: {type: String, unique: true, required : true, dropDups: true},
         description: String,
         lexicon: {type:mongoose.Schema.Types.ObjectId, ref:'Lexicon'},
         status: {type: String, default: 'active'},

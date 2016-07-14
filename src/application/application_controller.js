@@ -9,6 +9,7 @@
     let TITAN_GLOBALS = require("../core/titan_global");
     let TitanModelController = require(`${TITAN_GLOBALS.CORE}`.concat("/controllers/titan_model_controller"));
     let Logger  = require(`${TITAN_GLOBALS.COMMON}`.concat("/logger"));
+    let s3Controller = require("../s3/s3_controller");
 
     let ApplicationModel = require('./application_model');
 
@@ -50,10 +51,17 @@
          */
         list() {
             Logger.info(`ac : list() - calling model controller listWithPopulate()`);
+            let populateArray = [];
             let populateObject = {};
             populateObject.path = 'applicationType';
             populateObject.select = 'name';
-            super.listWithPopulate(populateObject);
+            populateArray.push(populateObject);
+            let populateObject2 = {};
+            populateObject2.path = 'user';
+            populateObject2.select = 'name';
+            populateArray.push(populateObject2);
+
+            super.listWithPopulate(populateArray);
         }
 
         get() {
@@ -67,6 +75,19 @@
                     Logger.error(err);
                 }
             );
+        }
+
+        /**
+         * Publish an application
+         */
+        publishApplication() {
+            let applicationId = this.id();
+            Logger.info(`publish application - ${applicationId}`);
+            Logger.info(`publish application - ${JSON.stringify(this.body())}`);
+            let s3Control = new s3Controller(this.req(), this.res());
+            s3Control.createPublishFile();
+            super.update();
+
         }
     }
 

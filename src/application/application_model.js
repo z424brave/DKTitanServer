@@ -49,7 +49,7 @@
 
     let applicationSchema = new Schema(
         {
-            name: String,
+            name: {type: String, unique: true, required : true, dropDups: true},
             applicationType: {type:mongoose.Schema.Types.ObjectId, ref:'ApplicationType'},
             status: {type: String, default: 'active'},
             publishable: Boolean,

@@ -18,6 +18,7 @@
     router.post('/', authService.hasRole('admin'), (req,res) => (new Controller(req,res)).createApplication());
     router.delete('/:id', authService.hasRole('admin'), (req,res) => (new Controller(req,res)).delete());
     router.put('/:id', authService.hasRole('admin'), (req,res) => (new Controller(req,res)).update());
+    router.put('/publish/:id', (req,res) => (new Controller(req,res)).publishApplication());
 
     module.exports = router;
 

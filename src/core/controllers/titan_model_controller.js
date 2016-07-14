@@ -116,8 +116,8 @@
          * and sends the JSON data back as a response.
          */
         list() {
-            let populateObject = {};
-            populateObject.path = '';
+            let populateObject = [];
+//            populateObject.path = '';
             Logger.info(`In list             : ${this.getModel().modelName}`);
             this.listWithPopulate(populateObject);
         }

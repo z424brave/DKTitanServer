@@ -21,13 +21,14 @@ let tag1 = "";
 let tag2 = "";
 let tag3 = "";
 let tags = [];
+let defaultLexiconId = "";
 let carouselPageId = "";
 let gamePageId = "";
 let appId = "";
 let appId2 = "";
 
 populate_languages();
-populate_tags();
+populate_lexicons();
 populate_roles();
 populate_settings();
 
@@ -126,8 +127,11 @@ function populate_applicationTypes2() {
 
 function populate_applications1() {
     Logger.info('starting to populate applications 1');
+    Application.find({}).removeAsync()
+        .then(() => {
+            Logger.info('populating application types - after removeAsync');
+            return Application.createAsync({
 
-    Application.createAsync({
         name: 'Damian Slide Page 1',
         tags: [],
         user: testUserId,
@@ -248,7 +252,7 @@ function populate_applications1() {
             Logger.info('caught error in populating applications 1');
             Logger.info(`Error is : ${JSON.stringify(e)}`);
         });
-
+    });
 }
 
 function populate_applications2() {
@@ -676,6 +680,12 @@ function populate_lexicons() {
         .then(() => {
             return Lexicon.createAsync({
 
+                    name: "Default",
+                    description: "The default lexicon for all tags not assigned to other specific lexicons",
+                    status: "active"
+
+                },
+                {
                     name: "Games",
                     description: "A lexicon for Games",
                     status: "active"
@@ -690,9 +700,11 @@ function populate_lexicons() {
                 })
                 .then(() => {
                     Logger.info('checking tags');
-                    Lexicon.findAsync({name: "Games"})
+                    Lexicon.findAsync({name: "Default"})
                         .then((lex) => {
-                            Logger.info(`Games lexicon has ${lex.length} tags`);
+                            defaultLexiconId = lex[0]._id;
+                            Logger.info(`Default lexicon is ${defaultLexiconId}`);
+                            populate_tags();
                         });
                 });
         });
@@ -705,64 +717,76 @@ function populate_tags() {
             return Tag.createAsync({
                             name: "Game Launcher",
                             description: "Indicates the node is related to the Game Launcher",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_BackgroundImage",
                             description: "Indicates the node references a background image for a Game Launcher game page",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_LogoImage",
                             description: "Indicates the node references a logo image for a Game Launcher game page",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_001",
                             description: "Indicates the node relates to an instance of a Game Launcher carousel page in position 001",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_002",
                             description: "Indicates the node relates to an instance of a Game Launcher carousel page in position 002",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_003",
                             description: "Indicates the node relates to an instance of a Game Launcher carousel page in position 003",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_004",
                             description: "Indicates the node relates to an instance of a Game Launcher carousel page in position 004",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_005",
                             description: "Indicates the node relates to an instance of a Game Launcher carousel page in position 005",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_Image",
                             description: "Indicates the node relates to the image for an instance of a Game Launcher carousel page",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_TopTitle",
                             description: "Indicates the node relates to the top title for an instance of a Game Launcher carousel page",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_Info",
                             description: "Indicates the node relates to the text information for an instance of a Game Launcher carousel page",
+                            lexicon: defaultLexiconId,
                             status: "active"
                         },
                         {
                             name: "GL_Carousel_MainTitle",
                             description: "Indicates the node relates to the main title for an instance of a Game Launcher carousel page",
+                            lexicon: defaultLexiconId,
                             status: "active"
-
-                })
+                        }
+                )
                 .then(() => {
                     Logger.info('checking tags');
                     Tag.findAsync({})
@@ -772,7 +796,6 @@ function populate_tags() {
                             tag3 = tag[2]._id;
                             tags = tag;
                             Logger.info(`Attila tag is ${tag[0]._id}`);
-                            populate_lexicons();
                         });
                 });
         });

@@ -9,7 +9,7 @@
 
     let applicationTypeSchema = new Schema(
         {
-            name: String,
+            name: {type: String, unique: true, required : true, dropDups: true},
             tags: [{
                 name: {type:mongoose.Schema.Types.ObjectId, ref:'Tag'},
                 value: String
