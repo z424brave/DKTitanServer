@@ -143,23 +143,41 @@ function populate_applications1() {
                 user: testUserId,
                 type: "text",
                 tags: [],
-                content: [{
-                    user: testUserId,
-                    translated: false,                    
-                    versionNo: 1,
-                    versionMessage: 'version 1',
-                    media: [
-                        {
-                            content: "Slide 1 Top Title",
-                            language: {
-                                name: "English",
-                                iso3166: "EN"
+                content: [
+                    {
+                        user: testUserId,
+                        translated: false,
+                        versionNo: 1,
+                        versionMessage: 'version 1',
+                        media: [
+                            {
+                                content: "Slide 1 Top Title - original version",
+                                language: {
+                                    name: "English",
+                                    iso3166: "EN"
+                                }
                             }
-                        }
 
-                    ]
+                        ]
 
-                }
+                    },
+                    {
+                        user: testUserId,
+                        translated: false,
+                        versionNo: 2,
+                        versionMessage: 'version 2',
+                        media: [
+                            {
+                                content: "Slide 1 Top Title - updated version",
+                                language: {
+                                    name: "English",
+                                    iso3166: "EN"
+                                }
+                            }
+
+                        ]
+
+                    },
                 ]
             },
             {
